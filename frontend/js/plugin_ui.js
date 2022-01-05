@@ -40,7 +40,7 @@ function toggleSwitch(){
         }else if (data.state == 'off'){ // turn on extension
             chrome.storage.local.set({state: 'on'});
             changeUI();
-            // $("#site_msg").text("Refresh the page for changes to take effect.");
+            $("#site_msg").text("Refresh the page for changes to take effect.");
         }
     })
 };
@@ -69,7 +69,7 @@ function changeUI(){
 
                 if(isPhish) {
                     $("#res-circle").css("background", "#e46666");
-                    $("#site_msg").text("You're being phised!");
+                    $("#site_msg").text("This website may be a phishing attempt!");
                     $("#site_status").text("DANGER");
                     $("#site_score").text(parseInt(legitimatePercent)-20+"%");
                 }
