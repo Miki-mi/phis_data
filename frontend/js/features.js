@@ -257,7 +257,7 @@ if(outRequest<22){
 //     result["Script & Link"]="1";
 // }
 
-//alert(allhrefs);
+// alert(allhrefs);
 
 //---------------------- 16.Server Form Handler ----------------------
 

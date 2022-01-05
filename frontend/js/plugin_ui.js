@@ -1,8 +1,11 @@
 var background = chrome.extension.getBackgroundPage();
 var colors = {
-    "-1":"#58bc8a",
-    "0":"#ffeb3c",
-    "1":"#ff8b66"
+    // "-1":"#58bc8a", //green
+    // "0":"#ffeb3c", //yellow
+    // "1":"#ff8b66" //red
+    "-1":"#58bc8a", //green
+    "0":"#FFDA3C", //yellow
+    "1":"#e46666" //red
 };
 var featureList = document.getElementById("features");
 
@@ -60,29 +63,37 @@ function changeUI(){
                 }
                 
                 // alert(String(typeof(legitimatePercent)));
+                
+                $("#site_status").show();
+                $("#results").show();
 
                 if(isPhish) {
-                    $("#res-circle").css("background", "#ff8b66");
+                    $("#res-circle").css("background", "#e46666");
                     $("#site_msg").text("You're being phised!");
+                    $("#site_status").text("DANGER");
                     $("#site_score").text(parseInt(legitimatePercent)-20+"%");
                 }
                 else{
                     $("#res-circle").css("background", "#58bc8a");
-                    $("#site_msg").text("The website is safe to use.");
-                    if(String(typeof(legitimatePercent)) != "number"){
-                        $("#site_score").text("WL");
-                    }
+                    $("#site_msg").text("This website is safe to use.");
+                    $("#site_status").text("SAFE");
                     $("#site_score").text(parseInt(legitimatePercent)+"%");
+                    if(String(typeof(legitimatePercent)) == "undefined"){ // If website is Whitelisted
+                        $("#site_status").hide();
+                        $("#results").hide();
+                        $("#site_score").text("SAFE");
+                        $("#site_msg").text("This website has been whitelisted and is safe to use.");
+                    }
                 }
 
                 // $("#site_score").text("ON");
                 // $("#site_msg").text("Extension is " + data.state);
-                $("#results").show();
             });
         }else if (data.state == 'off'){
             $("#res-circle").css("background", "#BFBFBF");
             $("#site_score").text("OFF");
             $("#site_msg").text("You're at risk of being phised!");
+            $("#site_status").hide();
             $("#features").hide();
             $("#results").hide();
             // alert('Extension is ' + data.state);
